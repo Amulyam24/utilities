@@ -1,6 +1,6 @@
-This disables signature verification which now defaults to true.
+# This disables signature verification which now defaults to true.
 # We should consider a better solution. See #331 for more info
-enable_signature_verification=false
+enable_signature_verification=true
 
 aa_kbc_params="offline_fs_kbc::null"
 

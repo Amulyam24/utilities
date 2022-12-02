@@ -56,7 +56,8 @@ cd ${KATA_AGENT_SRC} && make BUILD_TYPE=release
 install ${KATA_AGENT_BIN} ${BIN_DIR}
 
 cd ${AA_SRC}/app
-cargo build --release --no-default-features --features offline_fs_kbc --target powerpc64le-unknown-linux-gnu
+OPENSSL=1
+cargo build --release --no-default-features --features offline_fs_kbc,grpc,openssl --target powerpc64le-unknown-linux-gnu
 install ${AA_BIN} ${BIN_DIR}
 
 cd /utilities
@@ -67,6 +68,8 @@ umoci unpack --image ${PAUSE_SRC}:${PAUSE_VERSION} files/${PAUSE_BUNDLE}
 # Copy files
 sudo mkdir -p /etc/kata-containers
 sudo cp -a files/etc/agent-config.toml /etc/agent-config.toml
+sudo cp -a files/etc/aa-offline_fs_kbc-keys.json /etc/aa-offline_fs_kbc-keys.json
+sudo cp -a files/etc/aa-offline_fs_kbc-resources.json /etc/aa-offline_fs_kbc-resources.json
 sudo cp -a files/etc/containers/* /etc/containers/
 sudo cp -a files/etc/systemd/* /etc/systemd/
 sudo cp -a files/pause_bundle /
@@ -75,6 +78,6 @@ sudo cp -a files/pause_bundle /
 systemctl enable agent-protocol-forwarder
 systemctl enable kata-agent
 systemctl enable run-kata\\x2dcontainers.mount 
-systemctl enable run-kata\\x2dcontainers-shared-containers.mount
+systemctl enable run-image.mount
 
-yum remove -y skoepo
+yum remove -y skopeo
