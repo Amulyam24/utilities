@@ -1,18 +1,3 @@
 {
-    "default": [
-        {
-            "type": "insecureAcceptAnything"
-        }
-    ],
-    "transports": {
-        "docker": {
-            "docker.io/amulyameka/enc-sshd": [
-                {
-                    "type": "signedBy",
-                    "keyType": "GPGKeys",
-                    "keyPath": "/etc/containers/quay_verification/public.gpg"
-                }
-            ]
-        }
-    }
+    "default": [{"type": "insecureAcceptAnything"}]
 }
